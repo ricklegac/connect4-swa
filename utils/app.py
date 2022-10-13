@@ -2,7 +2,17 @@
 import random, time
 import tkinter as tk
 from .utils import ordinal
+"""
+la clase Board() simula el tablero 
+las siguientes propiedades:
+    b.rows  numero de filas en la tabla
+    b.cols  numero de columnas en la tabla
+    b.PLAYER1   bandera que representa al jugador 1 
+    b.PLAYER2   bandera que representa al jugador 2
+    b.EMPTY_SLOT    bandera que representa un espacio vacio en el tablero
+    
 
+"""
 class Board(object):
 
     EMPTY_SLOT = 0
