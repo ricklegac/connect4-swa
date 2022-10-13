@@ -1,7 +1,18 @@
 """
 Ricardo Leguizamon
 Diego Seo
-Lorenzo Cabrera 
+Lorenzo Cabrera
+
+
+En esta tarea implementamos la busqueda con adversario con
+un limite de profundidad
+las funciones implementadas son: minimax, alphabeta y expectiminimax
+
+en el conecta4, dos jugadores colocan discos en una tabla 6x7
+uno por uno. los discos se colocan en la ultima fila posible colocandolos
+en una columna por turno. el jugador gana si 4 de estos estan
+conectados en una linea
+
 
 """
 
