@@ -1,7 +1,12 @@
-# connect4.py
+"""
+Ricardo Leguizamon
+Diego Seo
+Lorenzo Cabrera 
+
+"""
 
 
-# use math library if needed
+
 import math
 
 def get_child_boards(player, board):
