@@ -29,14 +29,12 @@ tenemos los siguientes metodos:
     b.occupied(row, col)    # revisa si esta ocupado ese slot
     x = b.get(row, col)     # get the jugador occupying the given slot
     assert(x in [b.PLAYER1, b.PLAYER2, b.EMPTY_SLOT])
-    row = b.row(r)          # get the specific row of the game described using
-                            # b.PLAYER1, b.PLAYER2 and b.EMPTY_SLOT
-    col = b.column(r)       # get a specific column of the game board
+    row = b.row(r)          # obtiene la fila del juego para imprimir despues con gui
+    col = b.column(r)       # lo mismo que b.row(r)
 
-    b.placeable(col)        # check if a checker can be placed at the specific
-                            # column
-    b.place(jugador, col)    # place a checker at the specific column for jugador
-        # raise ValueError if the specific column does not have available space
+    b.placeable(col)        # ve si puede colocarse en ese logar 
+    b.place(jugador, col)    # si es que puede colocarse lo coloca
+        # raise ValueError  si es que ya no se puede colocar termina en error 
     
     new_board = b.clone()   # return a new board instance having the same
                             # checker placement with b
