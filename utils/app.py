@@ -29,20 +29,16 @@ tenemos los siguientes metodos:
     b.occupied(row, col)    # revisa si esta ocupado ese slot
     x = b.get(row, col)     # get the jugador occupying the given slot
     assert(x in [b.PLAYER1, b.PLAYER2, b.EMPTY_SLOT])
-    row = b.row(r)          # get the specific row of the game described using
-                            # b.PLAYER1, b.PLAYER2 and b.EMPTY_SLOT
-    col = b.column(r)       # get a specific column of the game board
+    row = b.row(r)          # obtiene la fila del juego para imprimir despues con gui
+    col = b.column(r)       # lo mismo que b.row(r)
 
-    b.placeable(col)        # check if a checker can be placed at the specific
-                            # column
-    b.place(jugador, col)    # place a checker at the specific column for jugador
-        # raise ValueError if the specific column does not have available space
+    b.placeable(col)        # ve si puede colocarse en ese logar 
+    b.place(jugador, col)    # si es que puede colocarse lo coloca
+        # raise ValueError  si es que ya no se puede colocar termina en error 
     
-    new_board = b.clone()   # return a new board instance having the same
-                            # checker placement with b
+    new_board = b.clone()   #retorna el board, lo clona en un nuevo board
 
-    str = b.dump()          # a string to describe the game board using
-                            # b.PLAYER1, b.PLAYER2 and b.EMPTY_SLOT
+    str = b.dump()          # imprime en consola
 """
 class Board(object):
 
@@ -75,7 +71,7 @@ class Board(object):
             if r[col] == self.EMPTY_SLOT:
                 r[col] = player
                 return True
-        raise ValueError("Column {} is not placeable.".format(col))
+        raise ValueError("columna {} ya no puede ser colocado.".format(col))
 
     def has_draw(self):
         for r in self._board:
@@ -141,7 +137,7 @@ class App(tk.Frame):
 
         self.master.title("Busqueda con Adversario - Conecta4")
 
-        self.master.geometry("640x480")
+        self.master.geometry("1280x720")
         self.master.resizable(False, False)
 
         self.canvas = tk.Canvas(self.master, bg="white")
