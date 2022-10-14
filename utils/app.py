@@ -105,12 +105,12 @@ class App(tk.Frame):
         super().__init__(master)
         self.alg_fn_map = alg_fn_map
 
-        self.master.title("Adversarial Search -- CPSC 4820/6820 Clemson University")
+        self.master.title("Busqueda con Adversario - Conecta4")
 
         self.master.geometry("640x480")
         self.master.resizable(False, False)
 
-        self.canvas = tk.Canvas(self.master, bg="white")
+        self.canvas = tk.Canvas(self.master, bg="black")
         self.canvas.grid(row=0, column=0, columnspan=4,
             sticky=tk.W+tk.E+tk.N+tk.S, padx=10, pady=28
         )
