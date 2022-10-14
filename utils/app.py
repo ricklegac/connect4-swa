@@ -4,9 +4,22 @@ Diego Seo
 Lorenzo Cabrea
 
 """
-import random, time
+import random
+import time
 import tkinter as tk
-from .utils import ordinal
+
+from utils import ordinal
+
+# import time
+#
+# class ProfileRecursiveFib(object):
+#     def __call__(self, func):
+#         self.start_time = time.clock()
+#         def g(x):
+#             return func(x)
+#         self.end_time = time.clock()
+#         print('time taken: {0}'.format(self.end_time - self.start_time))
+#         return g
 """
 La clase Board es la que se encarga de simular la tabla
 En este caso tenemos las siguientes propiedades

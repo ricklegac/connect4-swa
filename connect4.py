@@ -129,9 +129,7 @@ def alphabeta(
     adversary = board.PLAYER2 if player == board.PLAYER1 else board.PLAYER1
     placement = None
     
-### Please finish the code below ##############################################
-###############################################################################
-    # Please initialize score value properly here or in the following code
+
     
     if depth_limit==0 or board.terminal() :
         if maxing_player==True:
