@@ -9,10 +9,44 @@ import tkinter as tk
 from .utils import ordinal
 """
 La clase Board es la que se encarga de simular la tabla
+En este caso tenemos las siguientes propiedades
+    b.rows          # numero de filas en el juego
+    b.cols          # numero de columnas en el juego
+    b.PLAYER1       # una bandera que representa al jugador 1 
+    b.PLAYER2       # una bandera que representa al jugador 2 
+    b.EMPTY_SLOT    # bandera que representa un espacio vacio 
+"""
+
+
+"""
+tenemos los siguientes metodos:
+   b.terminal()             # se activa cuando se termina el juego  
+                            # terminal ve si gana alguien o termina en empate
+    b.has_draw()            # ve si termina en empate
+    w = b.who_wins()        # retorna el ganador 
+    assert(w in [b.PLAYER1, b.PLAYER2, None])   # si lanza error 
+
+    b.occupied(row, col)    # revisa si esta ocupado ese slot
+    x = b.get(row, col)     # get the jugador occupying the given slot
+    assert(x in [b.PLAYER1, b.PLAYER2, b.EMPTY_SLOT])
+    row = b.row(r)          # get the specific row of the game described using
+                            # b.PLAYER1, b.PLAYER2 and b.EMPTY_SLOT
+    col = b.column(r)       # get a specific column of the game board
+
+    b.placeable(col)        # check if a checker can be placed at the specific
+                            # column
+    b.place(jugador, col)    # place a checker at the specific column for jugador
+        # raise ValueError if the specific column does not have available space
+    
+    new_board = b.clone()   # return a new board instance having the same
+                            # checker placement with b
+
+    str = b.dump()          # a string to describe the game board using
+                            # b.PLAYER1, b.PLAYER2 and b.EMPTY_SLOT
 """
 class Board(object):
 
-    EMPTY_SLOT = 0
+    EMPTY_SLOT = 0 # al comienzo todos tienen que estar vacios no 6x7
     PLAYER1 = 1
     PLAYER2 = 2
 
@@ -105,12 +139,12 @@ class App(tk.Frame):
         super().__init__(master)
         self.alg_fn_map = alg_fn_map
 
-        self.master.title("Adversarial Search -- CPSC 4820/6820 Clemson University")
+        self.master.title("Busqueda con Adversario - Conecta4")
 
         self.master.geometry("640x480")
         self.master.resizable(False, False)
 
-        self.canvas = tk.Canvas(self.master, bg="cyan")
+        self.canvas = tk.Canvas(self.master, bg="white")
         self.canvas.grid(row=0, column=0, columnspan=4,
             sticky=tk.W+tk.E+tk.N+tk.S, padx=10, pady=28
         )
@@ -228,7 +262,7 @@ class App(tk.Frame):
         )
         if player1 == "IA":
             self.canvas.create_text(20, 55,
-                text="Profundidad: {}".format(search_depth1), fill="black", font=(None, 10), anchor="nw"
+                text="Depth: {}".format(search_depth1), fill="black", font=(None, 10), anchor="nw"
             )
         self.draw_checker(self.PLAYER2, w-40, 20)
         self.canvas.create_text(w-20, 40,
@@ -236,7 +270,7 @@ class App(tk.Frame):
         )
         if player2 == "IA":
             self.canvas.create_text(w-20, 55,
-                text="Profundidad: {}".format(search_depth2), fill="black", font=(None, 10), anchor="ne"
+                text="Depth: {}".format(search_depth2), fill="black", font=(None, 10), anchor="ne"
             )
         h -= 10
         self.cell_size = min(
@@ -262,7 +296,7 @@ class App(tk.Frame):
 
         def place(player, col, render=True):
             if self.board.place(player, col):
-                print("Player {} places at the {} column".format(1 if player == self.PLAYER1 else 2, ordinal(col+1)))
+                print("Jugador {} en la columna {}".format(1 if player == self.PLAYER1 else 2, ordinal(col+1)))
                 print(self.board.dump())
                 print("############################################")
                 if render:
@@ -275,7 +309,7 @@ class App(tk.Frame):
                 return self.PLAYER2 if player == self.PLAYER1 else self.PLAYER1
             if player == "Humano":
                 return player
-            raise ValueError("IA tried to place at a invalid column ({})".format(col))
+            raise ValueError("IA intenta colocar en una columna invalida ({})".format(col))
 
         def human_motion(player, x, y, tag="last_human_motion"):
             x -= board_pos[0]
@@ -307,13 +341,13 @@ class App(tk.Frame):
             if self.terminal_request:
                 return
             if self.board.has_draw():
-                self.prompt("Draw")
-                print("Game ends in a draw.")
+                self.prompt("Empate")
+                print("Juego termina en empate.")
                 return
             winner = self.board.who_wins()
             if winner is not None:   
-                self.prompt("Jugador {} gano".format(1 if winner == self.PLAYER1 else 2))
-                print("Jugador {} gano.".format(1 if winner == self.PLAYER1 else 2))
+                self.prompt("Player {} Wins".format(1 if winner == self.PLAYER1 else 2))
+                print("Player {} wins.".format(1 if winner == self.PLAYER1 else 2))
                 return
             agent = player1 if player == self.PLAYER1 else player2
             if agent == "Humano":
@@ -334,8 +368,8 @@ class App(tk.Frame):
                 else:
                     action, *_ = search_fn(player, self.board, search_depth1 if player == self.PLAYER1 else search_depth2)
                 if action is None:
-                    self.prompt("Player {} Gives Up".format(1 if player == self.PLAYER1 else 2))
-                    print("Player {} gives up".format(1 if player == self.PLAYER1 else 2))
+                    self.prompt("Jugador {} nu juega".format(1 if player == self.PLAYER1 else 2))
+                    print("Jugador {} no juega".format(1 if player == self.PLAYER1 else 2))
                 else:
                     adversary = place(player, action)
                     # self.master.bind("<Key>", lambda e: turn_for(adversary))
