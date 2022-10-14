@@ -8,7 +8,7 @@ import random
 import time
 import tkinter as tk
 
-from utils import ordinal
+from .utils import ordinal
 
 # import time
 #
