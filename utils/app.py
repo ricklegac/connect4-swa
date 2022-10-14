@@ -36,11 +36,9 @@ tenemos los siguientes metodos:
     b.place(jugador, col)    # si es que puede colocarse lo coloca
         # raise ValueError  si es que ya no se puede colocar termina en error 
     
-    new_board = b.clone()   # return a new board instance having the same
-                            # checker placement with b
+    new_board = b.clone()   #retorna el board, lo clona en un nuevo board
 
-    str = b.dump()          # a string to describe the game board using
-                            # b.PLAYER1, b.PLAYER2 and b.EMPTY_SLOT
+    str = b.dump()          # imprime en consola
 """
 class Board(object):
 
@@ -73,7 +71,7 @@ class Board(object):
             if r[col] == self.EMPTY_SLOT:
                 r[col] = player
                 return True
-        raise ValueError("Column {} is not placeable.".format(col))
+        raise ValueError("columna {} ya no puede ser colocado.".format(col))
 
     def has_draw(self):
         for r in self._board:
@@ -139,7 +137,7 @@ class App(tk.Frame):
 
         self.master.title("Busqueda con Adversario - Conecta4")
 
-        self.master.geometry("640x480")
+        self.master.geometry("1280x720")
         self.master.resizable(False, False)
 
         self.canvas = tk.Canvas(self.master, bg="black")
