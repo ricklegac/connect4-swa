@@ -116,7 +116,7 @@ class App(tk.Frame):
         self.canvas.grid(row=0, column=0, columnspan=4,
             sticky=tk.W+tk.E+tk.N+tk.S, padx=10, pady=28
         )
-        self.bt_new = tk.Button(self.master, text="New", command=self.new_game)
+        self.bt_new = tk.Button(self.master, text="Nuevo Juego", command=self.new_game)
         self.bt_new.grid(row=1, column=0,
             sticky=tk.W, padx=10, pady=(0, 10)
         )
@@ -139,7 +139,7 @@ class App(tk.Frame):
             return
 
         self.new_game_window = tk.Toplevel(self.master)
-        self.new_game_window.title("New Game")
+        self.new_game_window.title("Nuevo Juego")
         # self.new_game_window.attributes("-topmost", True)
         # self.new_game_window.grab_set()
         self.new_game_window.protocol("WM_DELETE_WINDOW", self.new_game_window.withdraw)
@@ -147,25 +147,25 @@ class App(tk.Frame):
     
         player1_var = tk.StringVar(self.new_game_window)
         player2_var = tk.StringVar(self.new_game_window)
-        listbox_player1 = tk.OptionMenu(self.new_game_window, player1_var, "Agent")
-        listbox_player2 = tk.OptionMenu(self.new_game_window, player2_var, "Agent", "Human")
+        listbox_player1 = tk.OptionMenu(self.new_game_window, player1_var, "IA")
+        listbox_player2 = tk.OptionMenu(self.new_game_window, player2_var, "IA", "Humano")
         player1_depth_var = tk.StringVar(self.new_game_window)
         player2_depth_var = tk.StringVar(self.new_game_window)
         listbox_player1_depth = tk.OptionMenu(self.new_game_window, player1_depth_var, "1", "2", "3", "4", "5")
         listbox_player2_depth = tk.OptionMenu(self.new_game_window, player2_depth_var, "1", "2", "3", "4", "5")
         player1_depth_var.set("1")
         player2_depth_var.set("1")
-        player1_var.set("Agent")
-        player2_var.set("Agent")
+        player1_var.set("IA")
+        player2_var.set("IA")
         listbox_player1.config(width=6)
         listbox_player2.config(width=6)
         #listbox_player1_depth.config(state=tk.DISABLED)
         #listbox_player2_depth.config(state=tk.DISABLED)
         player1_var.trace("w",
-            lambda *args: listbox_player1_depth.config(state=tk.NORMAL if player1_var.get() == "Agent" else tk.DISABLED)
+            lambda *args: listbox_player1_depth.config(state=tk.NORMAL if player1_var.get() == "IA" else tk.DISABLED)
         )
         player2_var.trace("w",
-            lambda *args: listbox_player2_depth.config(state=tk.NORMAL if player2_var.get() == "Agent" else tk.DISABLED)
+            lambda *args: listbox_player2_depth.config(state=tk.NORMAL if player2_var.get() == "IA" else tk.DISABLED)
         )
 
         alg_var = tk.StringVar(self.new_game_window)
@@ -233,7 +233,7 @@ class App(tk.Frame):
         self.canvas.create_text(20, 40,
             text=player1, fill="black", font=(None, 10), anchor="nw"
         )
-        if player1 == "Agent":
+        if player1 == "IA":
             self.canvas.create_text(20, 55,
                 text="Depth: {}".format(search_depth1), fill="black", font=(None, 10), anchor="nw"
             )
@@ -241,7 +241,7 @@ class App(tk.Frame):
         self.canvas.create_text(w-20, 40,
             text=player2, fill="black", font=(None, 10), anchor="ne"
         )
-        if player2 == "Agent":
+        if player2 == "IA":
             self.canvas.create_text(w-20, 55,
                 text="Depth: {}".format(search_depth2), fill="black", font=(None, 10), anchor="ne"
             )
@@ -280,9 +280,9 @@ class App(tk.Frame):
                     )
                     self.canvas.update()
                 return self.PLAYER2 if player == self.PLAYER1 else self.PLAYER1
-            if player == "Human":
+            if player == "Humano":
                 return player
-            raise ValueError("Agent tried to place at a invalid column ({})".format(col))
+            raise ValueError("IA tried to place at a invalid column ({})".format(col))
 
         def human_motion(player, x, y, tag="last_human_motion"):
             x -= board_pos[0]
@@ -323,7 +323,7 @@ class App(tk.Frame):
                 print("Player {} wins.".format(1 if winner == self.PLAYER1 else 2))
                 return
             agent = player1 if player == self.PLAYER1 else player2
-            if agent == "Human":
+            if agent == "Humano":
                 self.canvas.bind("<Motion>", lambda e: human_motion(player, e.x, e.y))
                 self.canvas.bind("<1>", lambda e: human_click(player, e.x, e.y))
                 x = self.canvas.winfo_pointerx()-self.canvas.winfo_rootx()
