@@ -233,7 +233,7 @@ class App(tk.Frame):
         )
         if player1 == "IA":
             self.canvas.create_text(20, 55,
-                text="Depth: {}".format(search_depth1), fill="black", font=(None, 10), anchor="nw"
+                text="Profundidad: {}".format(search_depth1), fill="black", font=(None, 10), anchor="nw"
             )
         self.draw_checker(self.PLAYER2, w-40, 20)
         self.canvas.create_text(w-20, 40,
@@ -241,7 +241,7 @@ class App(tk.Frame):
         )
         if player2 == "IA":
             self.canvas.create_text(w-20, 55,
-                text="Depth: {}".format(search_depth2), fill="black", font=(None, 10), anchor="ne"
+                text="Profundidad: {}".format(search_depth2), fill="black", font=(None, 10), anchor="ne"
             )
         h -= 10
         self.cell_size = min(
@@ -267,7 +267,7 @@ class App(tk.Frame):
 
         def place(player, col, render=True):
             if self.board.place(player, col):
-                print("Player {} places at the {} column".format(1 if player == self.PLAYER1 else 2, ordinal(col+1)))
+                print("Jugador {} en la columna {}".format(1 if player == self.PLAYER1 else 2, ordinal(col+1)))
                 print(self.board.dump())
                 print("############################################")
                 if render:
@@ -280,7 +280,7 @@ class App(tk.Frame):
                 return self.PLAYER2 if player == self.PLAYER1 else self.PLAYER1
             if player == "Humano":
                 return player
-            raise ValueError("IA tried to place at a invalid column ({})".format(col))
+            raise ValueError("IA intenta colocar en una columna invalida ({})".format(col))
 
         def human_motion(player, x, y, tag="last_human_motion"):
             x -= board_pos[0]
@@ -312,13 +312,13 @@ class App(tk.Frame):
             if self.terminal_request:
                 return
             if self.board.has_draw():
-                self.prompt("Draw")
-                print("Game ends in a draw.")
+                self.prompt("Empate")
+                print("Juego termina en empate.")
                 return
             winner = self.board.who_wins()
             if winner is not None:   
-                self.prompt("Player {} Wins".format(1 if winner == self.PLAYER1 else 2))
-                print("Player {} wins.".format(1 if winner == self.PLAYER1 else 2))
+                self.prompt("Jugador {} gana".format(1 if winner == self.PLAYER1 else 2))
+                print("Jugador {} gana.".format(1 if winner == self.PLAYER1 else 2))
                 return
             agent = player1 if player == self.PLAYER1 else player2
             if agent == "Humano":
@@ -339,8 +339,8 @@ class App(tk.Frame):
                 else:
                     action, *_ = search_fn(player, self.board, search_depth1 if player == self.PLAYER1 else search_depth2)
                 if action is None:
-                    self.prompt("Player {} Gives Up".format(1 if player == self.PLAYER1 else 2))
-                    print("Player {} gives up".format(1 if player == self.PLAYER1 else 2))
+                    self.prompt("Jugador {} nu juega".format(1 if player == self.PLAYER1 else 2))
+                    print("Jugador {} no juega".format(1 if player == self.PLAYER1 else 2))
                 else:
                     adversary = place(player, action)
                     # self.master.bind("<Key>", lambda e: turn_for(adversary))
