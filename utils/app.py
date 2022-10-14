@@ -7,7 +7,9 @@ Lorenzo Cabrea
 import random, time
 import tkinter as tk
 from .utils import ordinal
-
+"""
+La clase Board es la que se encarga de simular la tabla
+"""
 class Board(object):
 
     EMPTY_SLOT = 0
