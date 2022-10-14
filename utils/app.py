@@ -16,9 +16,37 @@ En este caso tenemos las siguientes propiedades
     b.PLAYER2       # una bandera que representa al jugador 2 
     b.EMPTY_SLOT    # bandera que representa un espacio vacio 
 """
+
+
+"""
+tenemos los siguientes metodos:
+   b.terminal()             # se activa cuando se termina el juego  
+                            # terminal ve si gana alguien o termina en empate
+    b.has_draw()            # ve si termina en empate
+    w = b.who_wins()        # retorna el ganador 
+    assert(w in [b.PLAYER1, b.PLAYER2, None])   # si lanza error 
+
+    b.occupied(row, col)    # revisa si esta ocupado ese slot
+    x = b.get(row, col)     # get the jugador occupying the given slot
+    assert(x in [b.PLAYER1, b.PLAYER2, b.EMPTY_SLOT])
+    row = b.row(r)          # get the specific row of the game described using
+                            # b.PLAYER1, b.PLAYER2 and b.EMPTY_SLOT
+    col = b.column(r)       # get a specific column of the game board
+
+    b.placeable(col)        # check if a checker can be placed at the specific
+                            # column
+    b.place(jugador, col)    # place a checker at the specific column for jugador
+        # raise ValueError if the specific column does not have available space
+    
+    new_board = b.clone()   # return a new board instance having the same
+                            # checker placement with b
+
+    str = b.dump()          # a string to describe the game board using
+                            # b.PLAYER1, b.PLAYER2 and b.EMPTY_SLOT
+"""
 class Board(object):
 
-    EMPTY_SLOT = 0 # al comienzo todos tienen que estar vacios no 6x7 
+    EMPTY_SLOT = 0 # al comienzo todos tienen que estar vacios no 6x7
     PLAYER1 = 1
     PLAYER2 = 2
 
