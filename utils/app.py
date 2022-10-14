@@ -110,7 +110,7 @@ class App(tk.Frame):
         self.master.geometry("640x480")
         self.master.resizable(False, False)
 
-        self.canvas = tk.Canvas(self.master, bg="white")
+        self.canvas = tk.Canvas(self.master, bg="cyan")
         self.canvas.grid(row=0, column=0, columnspan=4,
             sticky=tk.W+tk.E+tk.N+tk.S, padx=10, pady=28
         )
@@ -130,16 +130,13 @@ class App(tk.Frame):
 
     def new_game(self):
         if self.new_game_window is not None:
-            # self.new_game_window.destroy()
-            # self.new_game_window = None
             self.new_game_window.update()
             self.new_game_window.deiconify()
             return
 
         self.new_game_window = tk.Toplevel(self.master)
         self.new_game_window.title("Nuevo Juego")
-        # self.new_game_window.attributes("-topmost", True)
-        # self.new_game_window.grab_set()
+
         self.new_game_window.protocol("WM_DELETE_WINDOW", self.new_game_window.withdraw)
         self.new_game_window.resizable(False, False)
     
@@ -157,8 +154,7 @@ class App(tk.Frame):
         player2_var.set("IA")
         listbox_player1.config(width=6)
         listbox_player2.config(width=6)
-        #listbox_player1_depth.config(state=tk.DISABLED)
-        #listbox_player2_depth.config(state=tk.DISABLED)
+    
         player1_var.trace("w",
             lambda *args: listbox_player1_depth.config(state=tk.NORMAL if player1_var.get() == "IA" else tk.DISABLED)
         )
@@ -172,8 +168,7 @@ class App(tk.Frame):
 
         def new_game():
             self.terminal_request = True
-            # self.new_game_window.destroy()
-            # self.new_game_window = None
+    
             self.new_game_window.withdraw()
             self.run_game(
                 player1_var.get(), int(player1_depth_var.get()),
@@ -233,7 +228,7 @@ class App(tk.Frame):
         )
         if player1 == "IA":
             self.canvas.create_text(20, 55,
-                text="Depth: {}".format(search_depth1), fill="black", font=(None, 10), anchor="nw"
+                text="Profundidad: {}".format(search_depth1), fill="black", font=(None, 10), anchor="nw"
             )
         self.draw_checker(self.PLAYER2, w-40, 20)
         self.canvas.create_text(w-20, 40,
@@ -241,7 +236,7 @@ class App(tk.Frame):
         )
         if player2 == "IA":
             self.canvas.create_text(w-20, 55,
-                text="Depth: {}".format(search_depth2), fill="black", font=(None, 10), anchor="ne"
+                text="Profundidad: {}".format(search_depth2), fill="black", font=(None, 10), anchor="ne"
             )
         h -= 10
         self.cell_size = min(
@@ -317,8 +312,8 @@ class App(tk.Frame):
                 return
             winner = self.board.who_wins()
             if winner is not None:   
-                self.prompt("Player {} Wins".format(1 if winner == self.PLAYER1 else 2))
-                print("Player {} wins.".format(1 if winner == self.PLAYER1 else 2))
+                self.prompt("Jugador {} gano".format(1 if winner == self.PLAYER1 else 2))
+                print("Jugador {} gano.".format(1 if winner == self.PLAYER1 else 2))
                 return
             agent = player1 if player == self.PLAYER1 else player2
             if agent == "Humano":
