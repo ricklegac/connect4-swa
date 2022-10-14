@@ -9,10 +9,16 @@ import tkinter as tk
 from .utils import ordinal
 """
 La clase Board es la que se encarga de simular la tabla
+En este caso tenemos las siguientes propiedades
+    b.rows          # numero de filas en el juego
+    b.cols          # numero de columnas en el juego
+    b.PLAYER1       # una bandera que representa al jugador 1 
+    b.PLAYER2       # una bandera que representa al jugador 2 
+    b.EMPTY_SLOT    # bandera que representa un espacio vacio 
 """
 class Board(object):
 
-    EMPTY_SLOT = 0
+    EMPTY_SLOT = 0 # al comienzo todos tienen que estar vacios no 6x7 
     PLAYER1 = 1
     PLAYER2 = 2
 
