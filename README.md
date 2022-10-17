@@ -1,6 +1,6 @@
 <b>
 John von Neumann es el creador del teorema minimax, quien dio la siguiente noción de lo que era un juego
-Un juego es una situación conflictiva en la que uno debe tomar una decisión sabiendo
+<br>Un juego es una situación conflictiva en la que uno debe tomar una decisión sabiendo
 que los demás también toman decisiones, y que el resultado del conflicto se determina, de
 algún modo, a partir de todas las decisiones realizadas.</b>
 
