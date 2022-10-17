@@ -176,9 +176,7 @@ def expectimax(player, board, depth_limit, maxing_player=True):
     adversary = board.PLAYER2 if player == board.PLAYER1 else board.PLAYER1
     placement = None
 
-### Please finish the code below ##############################################
-###############################################################################
-    # Please initialize score value properly here or in the following code
+
     score = float("-inf")
     if depth_limit==0 or board.terminal() :
         if maxing_player==True:
@@ -201,14 +199,14 @@ def expectimax(player, board, depth_limit, maxing_player=True):
 
         else:
             score = 0
-            print("This is for chance nodes")
+            print("chance nodes")
             x=get_child_boards(player,board)
-            #length of child nodes
+            #este es el lenght de los nodos child 
             length = len(x)
             for i in x:
                 col,new_board=i
                 current_placement,current_score=expectimax(adversary, new_board, depth_limit-1, maxing_player=True)
-                #all children have equal probability
+                
                 chance = length**-1 * current_score
                 score += chance
             
